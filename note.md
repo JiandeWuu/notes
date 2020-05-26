@@ -1,6 +1,24 @@
-public-business-listing-ContactInfo__ui_link--1_7Zp public-business-listing-ContactInfo__level_4--3JgmI
+# note
 
-public-business-listing-ContactInfo__ui_link--1_7Zp public-business-listing-ContactInfo__level_4--3JgmI
+- 前情提要
+- 節奏放慢
+- 寫稿動作
+- 前後連貫
+- 起承轉合
 
-class="item poi_name ui_link"
+## 前情提要
 
+視覺化：js, leaflet
+leaflet：js套件
+
+## 內容
+
+GS:網格狀的去尋找最佳組合。後續可以加入收斂。在一個大範圍裡找到一塊區域不斷重複直到找到你的最佳。比自己給參數去測的方式更有效率，但是時間成本大。
+
+RS:將參數以亂數的方式找出最佳組合，可以避開同一個參數在不同組合下的成本耗費。
+會像在一個空間內以亂數的方式去平均分佈照出各個參數的 loss 狀況。
+與網格很類似但是並不是用正方形的網格方式去尋找而是用一種均勻的方式。
+
+CV:檢測 model 未來在預測的能力。如果能力夠好有些東西可以取捨。
+
+LSTM tensorflow 比自己寫的慢 40 倍
