@@ -21,4 +21,5 @@ RS:將參數以亂數的方式找出最佳組合，可以避開同一個參數�
 
 CV:檢測 model 未來在預測的能力。如果能力夠好有些東西可以取捨。
 
-LSTM tensorflow 比自己寫的慢 40 倍
+自己的：700MB
+LSTM tensorflow 7600MB

@@ -1,24 +1,22 @@
 # Python 虛擬環境
-## 建立虛擬環境：
->	python3：`$ python3 -m venv tutorial-env`
->
->	virtualenv ：`$ virtualenv test_env01(环境名称，文件夹名称)`
->
->	pyenv: `$ pyenv virtualenv {版號} {虛擬環境名稱}`
->	
 
-## 呼叫虛擬環境：
-```
-$ source 環境資料夾名稱/bin/activate (activate路径)
-```
+## 建立虛擬環境
+
+> python3：`$ python3 -m venv tutorial-env`
+>
+> virtualenv ：`$ virtualenv test_env01(环境名称，文件夹名称)`
+>
+> pyenv: `$ pyenv virtualenv {版號} {虛擬環境名稱}`
+
+## 呼叫虛擬環境
+
+`$ source 環境資料夾名稱/bin/activate (activate路径)`
 pyenv: `$ pyenv activate {虛擬環境名稱}`
 
-## 退出環境：
-```
-$ deactivate
-```
-pyenv: `$ pyenv deactivate`
+## 退出環境
 
+`$ deactivate`
+pyenv: `$ pyenv deactivate`
 
 cupy
 cudnn
@@ -28,18 +26,21 @@ cudnn
 $ pip freeze
 `
 
-- 	終端機
--	venv
-- 	pipenv
+- 終端機
+- venv
+- pipenv
 
 ## VScode
+
 settings.json
->	"terminal.integrated.shell.osx": "/usr/local/bin/zsh",
-> 	"terminal.external.osxExec": "iTerm.app",
->	"terminal.integrated.fontFamily": "SauceCodePro Nerd Font"
+> "terminal.integrated.shell.osx": "/usr/local/bin/zsh",
+> "terminal.external.osxExec": "iTerm.app",
+> "terminal.integrated.fontFamily": "SauceCodePro Nerd Font"
 
 ## install python
+
 ### ubuntu
+
 `sudo apt update`
 `sudo apt install python3-pip`
 
