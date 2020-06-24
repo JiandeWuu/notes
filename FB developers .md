@@ -17,15 +17,15 @@ https://graph.facebook.com/search?type=place&center={center}&distance={distance}
 |q			|你想要搜尋的名稱， name 中包含此字串|
 
 ##	以ID搜尋詳細資料
-Get : 
-```
-https://graph.facebook.com/v5.0/{place-information-id}?fields={list-of-fields}
-```
+
+Get :
+
+```https://graph.facebook.com/v5.0/{place-information-id}?fields={list-of-fields}```
 
 |name|說明|
 |---|---|
-|id		|地點的 id。|
-|about	|關於此地點的訊息。|
+|id|地點的 id。|
+|about|關於此地點的訊息。|
 |app_links|用 FB APP 開啟此地點的頁面（android、ios）。|
 | category_list |此地點的子類別。|
 | checkins |此地點的打卡數。|

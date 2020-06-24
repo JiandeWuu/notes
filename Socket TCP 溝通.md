@@ -42,15 +42,15 @@ s.send(b'exit')
 s.close()
 ```
 
-### 	輸出
+### 輸出
 server:
->	Waiting for connection...
+> Waiting for connection...
 >
->	Accept new connection from 127.0.0.1:49767...
+> Accept new connection from 127.0.0.1:49767...
 >
->	Connection from 127.0.0.1:49767 closed.
+> Connection from 127.0.0.1:49767 closed.
 
 客戶端
->	-->>Hello,I am server!
->	
->	-->>Loop_Msg: Hello,I am a client!
+> -->>Hello,I am server!
+>
+> -->>Loop_Msg: Hello,I am a client!

@@ -53,11 +53,9 @@ settings.json
 
 `vim ~/.bashrc`
 
-```
-export PATH="~/.pyenv/bin:$PATH"
+```export PATH="~/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-```
+eval "$(pyenv virtualenv-init -)"```
 
 激活
 `source ~/.bashrc`
