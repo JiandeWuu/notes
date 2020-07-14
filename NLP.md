@@ -208,6 +208,31 @@ NLP 的比賽
   input: 前提, 假設
   output: 判斷
 
-## Super GLUE
+## 名詞解釋
 
-## DecaNLP
+autoregressive model:由左而右的預測模型
+
+## MASS/BART
+
+The pre-train model is a typical _seq2seq_ model.
+
+input word seq have corrupted. if not corrupted just copy.
+
+### Input Corruption
+
+MASS:random mark word seq, delete "D", permutation, rotation, Text Infilling
+
+permutation:打亂順序
+rotation:倒置
+Text Infilling:只有一個mark token 但是需要把原本多個的答案預測回來
+
+BART 的結論：
+
+- Permutation / Rotation do not perform well.
+- Text Innfilling is consistently good.
+
+## UniLM
+
+Encoder, Decoder, Seq2seq
+
+BERT, GPT, BART MASS
