@@ -132,6 +132,7 @@ cd tensorflow
 git checkout r2.1
 ./c
 bazel build --config=opt --config=cuda --local_ram_resources=2048 --noincompatible_do_not_split_linking_cmdline //tensorflow:libtensorflow_cc.so
+bazel build --config=opt --config=cuda --local_ram_resources=2048 --noincompatible_do_not_split_linking_cmdline //tensorflow:libtensorflow_framework.so
 
 ./tensorflow/lite/tools/make/download_dependencies.sh 
 
