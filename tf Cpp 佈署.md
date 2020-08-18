@@ -4,6 +4,7 @@
 
 ` docker run --gpus all -it -v {local path}:{docker path} --name {container name} {image name/id}`
 ` docker run --gpus all -it -v ~/docker-v:/docker-v --name cpp-gpu-test {image name/id}`
+` docker run -it -v ~/docker-v:/docker-v --name cpp-gpu-test {image name/id}`
 
 ```
 # Add the package repositories
@@ -126,22 +127,16 @@ git clone https://github.com/tensorflow/tensorflow.git
 cd tensorflow
 ```
 
-
-
 ```cmd
 git checkout r2.1
 ./c
 bazel build --config=opt --config=cuda --local_ram_resources=2048 --noincompatible_do_not_split_linking_cmdline //tensorflow:libtensorflow_cc.so
 bazel build --config=opt --config=cuda --local_ram_resources=2048 --noincompatible_do_not_split_linking_cmdline //tensorflow:libtensorflow_framework.so
 
-./tensorflow/lite/tools/make/download_dependencies.sh 
+./tensorflow/lite/tools/make/download_dependencies.sh
 
 cmake .
 make
 ```
 
 ## Go
-
-```cmd
-
-```

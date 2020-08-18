@@ -56,6 +56,10 @@ RUN pip3 install -r requirements.txt
 EXPOSE 5000
 ```
 
+### build
+
+`docker build -t mytomcat . --no-cache`
+
 ## python
 
 - python3.6
