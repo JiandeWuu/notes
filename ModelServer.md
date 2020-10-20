@@ -13,3 +13,5 @@
 - 同時1000筆請求就有明顯的壅塞問題
 
 ## add Gunicorn
+
+`pip install gunicorn`
