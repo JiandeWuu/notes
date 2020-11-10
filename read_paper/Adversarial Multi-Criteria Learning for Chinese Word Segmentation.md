@@ -139,4 +139,52 @@ Inspired by the success of adversarial strategy on domain adaption(**Ajakan et a
 - utilize（利用）
 - suitable（適當）
 
-Finally, we exploit the eight segmentation criteria on the five simplified Chinese and three traditionnal Chinese corpora.
+Finally, we exploit the eight segmentation criteria on the five simplified Chinese and three traditional Chinese corpora.
+
+最後我們將八個分詞標準使用在五個簡體中文跟三個繁體中文語料庫。
+
+- simplified Chinese（簡體中文）
+- traditional Chinese（繁體中文）
+
+Experiments show that our models are effective to improve the performance for CWS.
+
+實驗顯示我們的模型可有效提高中文分詞的性能。
+
+We also observe that traditional Chinese could benefit from incorporating knowledge from simplified Chinese.
+
+我們也觀察到繁體中文可以受益從簡體中文中吸收知識。
+
+- observe（觀察）
+- benefit（效益）
+- incorporating（合併）
+
+The contributions of this paper could summarized as follows.
+
+這篇論文的貢獻可以總結如下。
+
+- contributions（貢獻）
+- summarized（總結）
+
+1. Multi-criteria learning is first introduced for CWS, in which we propose three shared-private models to integrate multiple segmentation criteria.
+
+首先為中文分詞引進多標準學習，其中我提出三個共享-私人模型來整合多分詞標準。
+
+- introduced（引進）
+- integrate（整合）
+  
+2. An adversarial strategy is used to force the shared layer to learn criteria-invariant features,in which an new objective function is also proposed instead of the original cross-entropy loss.
+
+對抗性策略是強制共享層去學習標準不變特徵，其中還提出新的目標函數替代原本的cross-entropy loss。
+
+- force（強制）
+- objective（目的）
+- instead（代替）
+  
+3. We conduct extensive experiments on eight CWS corpora with different segmentation criteria, which is by far the largest number of datasets used simultaneously.
+ 
+我們進行大規模實驗在八個中文分詞語料庫於不一樣的分詞標準，這是現在為止同時使用的最大datasets。
+
+- conduct（進行）
+- extensive（廣泛、大規模）
+- largest（最大的）
+- simultaneously（同時）
