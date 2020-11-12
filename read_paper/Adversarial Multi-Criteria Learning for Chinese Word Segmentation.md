@@ -219,3 +219,6 @@ Recently, neural networks are widely applied to Chinese word segmentation task f
 - widely（廣泛）
 - applied（應用於）
 - ability（能力）
+
+Specifically, given a sequence with $n$ characters $X = \{ x_1,\ldots,x_n \}$, the aim of CWS task is to figure out the ground truth of labels $Y^* = \{ y^*_1, \ldots, y^*_n\}$ :
+$$Y^*=\argmax p(Y|X),$$
