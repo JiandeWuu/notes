@@ -181,10 +181,41 @@ The contributions of this paper could summarized as follows.
 - instead（代替）
   
 3. We conduct extensive experiments on eight CWS corpora with different segmentation criteria, which is by far the largest number of datasets used simultaneously.
- 
+
 我們進行大規模實驗在八個中文分詞語料庫於不一樣的分詞標準，這是現在為止同時使用的最大datasets。
 
 - conduct（進行）
 - extensive（廣泛、大規模）
 - largest（最大的）
 - simultaneously（同時）
+
+## General Neural Model for Chinese Word Segmentation
+
+Chinese word segmentation task is usually regarded as a character based sequence labeling problem.
+
+中文分詞任務通常被視為基於字符的序列標注問題。
+
+- regarded（被視為）
+- character（字符）
+
+Specifically, each character in a sentence is labeled as one of $L = {B, M, E, S}$, indicating the begin, middle, end of a word, or a word with single character.
+
+具體來說，句子中每個字符都有一個標注（B, M, E, S)，表示在一個詞的開始，中間，結束，或者詞就是單一的字符。
+
+- indicating（指示）
+
+There are lots of prevalent methods to solve sequence labeling problem such as maximum entropy Markov model(MEMM), conditional random fields(CRF), etc.
+
+解決序列標籤問題的方法很多例如馬可夫練模型，CRF等等。
+
+- prevalent（流行）
+- solve（解決）
+- conditional（有條件的）
+
+Recently, neural networks are widely applied to Chinese word segmentation task for their ability to minimize the effort in feature engineering(**Zheng et al., 2013; Pei et al., 2014; Chen et al., 2015a,b**).
+
+最近神經網路因為能夠最大程度地減少特徵工程工作量的能力而被廣泛應用於中文分詞任務。
+
+- widely（廣泛）
+- applied（應用於）
+- ability（能力）
