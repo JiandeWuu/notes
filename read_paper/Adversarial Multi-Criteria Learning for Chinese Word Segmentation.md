@@ -234,6 +234,8 @@ where $\mathcal L = \{ B,M,E,S \}$.
 
 The general architecture of neural CWS could be characterized by three component: (1) a character embedding layer; (2) feature layers consisting of several classical neural networks and (3) a tag inference layer.
 
+神經網路的中文分詞一般分為三個部份組成:(1)字符embedding層 (2)一些神經網路所組成的特徵層跟(3)一個標籤推理層。
+
 - characterized（特色的）
 - component（組成）
 - consisting（組成）
@@ -241,3 +243,10 @@ The general architecture of neural CWS could be characterized by three component
 - inference（推理）
 
 The role of feature layers is to extract features, which could be either convolution neural network or recurrent neural network.
+
+特徵層是提取特徵，可以是卷積神經網路或者是遞歸神經網路其中一個。
+
+- role（角色）
+- either（或）
+- convolution（卷積）
+- recurrent（反覆發作）
