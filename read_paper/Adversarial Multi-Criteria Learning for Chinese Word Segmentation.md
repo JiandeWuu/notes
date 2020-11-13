@@ -221,4 +221,23 @@ Recently, neural networks are widely applied to Chinese word segmentation task f
 - ability（能力）
 
 Specifically, given a sequence with $n$ characters $X = \{ x_1,\ldots,x_n \}$, the aim of CWS task is to figure out the ground truth of labels $Y^* = \{ y^*_1, \ldots, y^*_n\}$ :
+
+
+- 具體來說給定一個有$n$個字符的序列$X = \{ x_1,\ldots,x_n \}$，中文分詞的目的就是弄清楚標籤的基本含意$Y^* = \{ y^*_1, \ldots, y^*_n\}$。
+
+- figure out（弄清楚）
+- ground truth（基本事實）
+
 $$Y^*=\argmax p(Y|X),$$
+
+where $\mathcal L = \{ B,M,E,S \}$.
+
+The general architecture of neural CWS could be characterized by three component: (1) a character embedding layer; (2) feature layers consisting of several classical neural networks and (3) a tag inference layer.
+
+- characterized（特色的）
+- component（組成）
+- consisting（組成）
+- several（一些）
+- inference（推理）
+
+The role of feature layers is to extract features, which could be either convolution neural network or recurrent neural network.
