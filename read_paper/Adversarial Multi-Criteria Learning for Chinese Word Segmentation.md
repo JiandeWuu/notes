@@ -228,7 +228,7 @@ Specifically, given a sequence with $n$ characters $X = \{ x_1,\ldots,x_n \}$, t
 - figure out（弄清楚）
 - ground truth（基本事實）
 
-$$Y^*=\argmax p(Y|X),$$
+$$Y^*=\argmax p(Y|X), \tag{1}$$
 
 where $\mathcal L = \{ B,M,E,S \}$.
 
@@ -250,3 +250,123 @@ The role of feature layers is to extract features, which could be either convolu
 - either（或）
 - convolution（卷積）
 - recurrent（反覆發作）
+
+In this paper, we adopt the bi-directional long short-term memory neural networks followed by CRF as the tag inference layer.
+
+在這篇論文中，我們採用LSTM加上CRF推測標籤層。
+
+- directional（定向的）
+
+### 2.1 Embedding layer
+
+In neural models, the first step usually is to map discrete language symbols to distributed embedding vectors.
+
+這神經網路，第一步通常是將離散語言符號映射到分散式embedding向量。
+
+- symbols（符號）
+- distributed（分散式）
+
+Formally, we lookup embedding vector from embedding matrix for each character $x_i$ as $e_{x_i} \in \mathbb{R}^{d_e}$, where $d_e$ is a hyper-parameter indicating the size of character embedding.
+
+形式上，我們從每個字符$x_i$的embedding矩陣中查找embedding向量，作為$e_{x_i}\in \mathbb{R}^{d_e}$，其中$d_e$是指字符embedding大小的超參數。
+
+- Formally（正式地）
+
+### 2.2 Feature layers
+
+We adopt bi-directional long short-term memory (Bi-LSTM) as feature layers.
+
+我們採用Bi-LSTM當特徵層。
+
+While there are numerous LSTM variants, here we use the LSTM architecture used by(**Jozefowicz et al., 2015**), which is similar to the architecture of (**Graves, 2013**) but without peep-hole connections.
+
+雖然LSTM有許多變體，我們使用這篇論文(**Jozefowicz et al., 2015**)的LSTM算法，與(**Graves, 2013**)類似的算法但是沒有窺視孔連接。
+
+- numerous（眾多）
+- variants（變體）
+- similar（類似）
+- peep-hole（窺孔）
+
+**LSTM** introduces gate mechanism and memory cell to maintain long dependency information and avoid gradient vanishing.
+
+LSTM引入門機制跟儲存單元幫助保持長期的依賴訊息跟避免梯度消失。
+
+- introduces（介紹）
+- mechanism（機制）
+- maintain（保持）
+- dependency（依賴）
+- avoid（避免）
+- vanishing（消失）
+
+Formally, LSTM, with input gate **i**, output gate **o**, forget gate **f** and memory cell **c**, could be expressed as:
+
+$$
+\begin{bmatrix}
+\textbf{i}_i \\
+\textbf{o}_i \\
+\textbf{f}_i \\
+\widetilde{\textbf{c}}_i
+\end{bmatrix}
+=
+\begin{bmatrix}
+\sigma  \\
+\sigma  \\
+\sigma  \\
+\phi
+\end{bmatrix}
+(\textbf{W}_g^\intercal\begin{bmatrix}
+\textbf{e}_{x_i}  \\
+\textbf{h}_{i-1}
+\end{bmatrix} + b_g), \tag{2}
+$$
+$$
+\textbf{c}_i = \textbf{c}_{i-1} \odot \textbf{f}_i + \widetilde{\textbf{c}}_i \odot \textbf{i}_i, \tag{3}
+$$
+$$
+\textbf{h}_i = \textbf{o}_{i-1} \odot \phi(\textbf{c}_i), \tag{4}
+$$
+
+where $\textbf{W}_g \in \mathbb{R}^{(d-e+d_h) \times 4d_h}$ and $\textbf{b}_g \in \mathbb{R}^{4d_h}$ are trainable parameters.
+
+- trainable（可訓練的）
+
+$d_h$ is a hyper-parameter, indicating the hidden state size.
+
+$d_h$是超參數，指示hidden狀態的大小。
+
+Function $\phi(.)$ and $\odot(.)$ are sigmoid and tanh functions respectively.
+
+$\phi(.)$ and $\odot(.)$分別是sigmoid and tanh。
+
+- respectively（分別）
+
+**Bi-LSTM** In order to incorporate information from both sides of sequence, we use bi-directional LSTM(Bi-LSTM) with forward and backward directions.
+
+為了整合序列兩側的信息，我們使用有向前與向後的BiLSTM。
+
+- incorporate（合併）
+- directions（指示）
+
+The update of each Bi-LSTM unit can be written precisely as follows:
+$$
+\mathbb{h}_i = \overrightarrow{\mathbb{h}}_i\oplus\overleftarrow{\mathbb{h}}_i, \tag{5}
+$$
+$$
+= Bi-LSTM(\textbf{e}_{x_i}, \overrightarrow{\mathbb{h}}_{i-1}, \overleftarrow{\mathbb{h}}_{i+1},\theta), \tag{6}
+$$
+
+BiLSTM神經元的更新可以精確地寫成這樣：
+
+- written precisely（精確地寫）
+
+where $\overrightarrow{\mathbb{h}}_i$ and $\overleftarrow{\mathbb{h}}_i$ are the hidden states at position $i$ of the forward and backward LSTMs respectively; $\oplus$ is concatenation operation; $\theta$ denotes all parameters in Bi-LSTM model.
+
+$\overrightarrow{\mathbb{h}}_i$ and $\overleftarrow{\mathbb{h}}_i$分別表示LSTMs在hidden位置$i$的正向與反向;$\oplus$是並列操作;$\theta$表示Bi-LSTM的所有參數。
+
+- concatenation（並列）
+- operation（操作）
+- denotes（表示）
+
+### 2.3 Inference Layer
+
+After extracting features, we employ conditional random fields(CRF)(**Lafferty et al., 2001**) layer to inference tags.
