@@ -4,7 +4,7 @@
 
 ## Abstract
 
-Different linguistic perspectives causes many diverse segmentation criteria for Chinnese word segmentation(CWS).
+Different linguistic perspectives causes many diverse segmentation criteria for Chinese word segmentation(CWS).
 
 因為不一樣的語言觀點所以有多樣的分詞標準在中文分詞上。
 
@@ -27,7 +27,7 @@ However, it is interesting to exploit these different criteria and mining their 
 - common（共同）
 - underlying（底層的）
 
-In this paper, we propose adversarial multi-criteria learning for CWS by integrating shared knowledge from multiple heterogeneous segmentationn criteria.
+In this paper, we propose adversarial multi-criteria learning for CWS by integrating shared knowledge from multiple heterogeneous segmentation criteria.
 
 在這篇論文中我們提出了對抗性多標準學習的中文分詞來整合多個不一樣分詞標準的公開的知識。
 
@@ -64,7 +64,7 @@ Currently, the state-of-the-art methods are based on statistical supervised lear
 - extremely（非常）
 - expensive（昂貴）
 
-Although there have been great achievements in building CWS corpora, they are somewhat incompatible due to differennt segmentation criteria.
+Although there have been great achievements in building CWS corpora, they are somewhat incompatible due to different segmentation criteria.
 
 雖然他在中文分詞語料庫有著傑出的成就，由於在不一樣分詞規則會有一些不相容。
 
@@ -88,7 +88,7 @@ In a sense, it is a waste of resources if we fail to fully exploit these corpora
 - resources（資源）
 - exploit（利用）
 
-Recently, some efforts have been made to exploit heterogeneous annotation data for Chinese word segmentationn or part-of-speech tagging(**Jiang et al., 2009; Sun and Wan, 2012; Qiu et al., 2013; Li et al., 2015, 2016**).
+Recently, some efforts have been made to exploit heterogeneous annotation data for Chinese word segmentation or part-of-speech tagging(**Jiang et al., 2009; Sun and Wan, 2012; Qiu et al., 2013; Li et al., 2015, 2016**).
 
 最近一些努力在使用不一樣的帶註譯的資料在做中文分詞或是詞性標注的論文。
 
@@ -166,12 +166,11 @@ The contributions of this paper could summarized as follows.
 - summarized（總結）
 
 1. Multi-criteria learning is first introduced for CWS, in which we propose three shared-private models to integrate multiple segmentation criteria.
-
-首先為中文分詞引進多標準學習，其中我提出三個共享-私人模型來整合多分詞標準。
+  首先為中文分詞引進多標準學習，其中我提出三個共享-私人模型來整合多分詞標準。
 
 - introduced（引進）
 - integrate（整合）
-  
+
 2. An adversarial strategy is used to force the shared layer to learn criteria-invariant features,in which an new objective function is also proposed instead of the original cross-entropy loss.
 
 對抗性策略是強制共享層去學習標準不變特徵，其中還提出新的目標函數替代原本的cross-entropy loss。

@@ -209,3 +209,185 @@ Given an input sentence, we calculate the soft gazetteer features for each span 
 - calculate（計算）
 
 We assume that we have an EL candidate retrieval method that returns candidate KB entries $C=(c_1,c_2\ldots)$ for the input span.
+
+我們假設我們有一個實體鏈接候選檢索方法，該方法返回輸入範圍的候選知識庫條目$C=(c_1,c_2\ldots)$。
+
+$c_1$ is the highest scoring candidate.
+
+$c_1$是最高分數的候選詞。
+
+As a concrete example, consider a feature that represents the $score$ $of$ $the$ $top-1$ $candidate$.
+
+舉一個具體的例子，考慮一個代表分數第一的候選詞特徵。
+
+- concrete（具體）
+- consider（考慮）
+
+**Figure 1** shows an example of calculating this feature on a sentence in Kinyarwanda, one of the languages used in our experiments.
+
+**Figure 1** 計算一個Kinyarwanda句子特徵的例子，我們在單一語言的實驗。
+
+- calculating（計算）
+
+The feature vector $f$ has an element corresponding to each named entity type in the KB (e.g., LOC, PER, and ORG).
+
+特徵向量$f$具有一個與知識庫中每個命名實體類型相應的元素。
+
+For this feature, the element corresponding to the entity type of the highest scoring candidate $c_1$ is updated with the score of the candidate.
+
+對於該特徵，得分最高的候選詞$c_1$的實體類型相對應的元素被更新為候選者的分數。
+
+That is,
+
+$$
+f_{type(c_1)}=score(c_1)
+$$
+
+This feature vector is applied to each word in the span, considering the position of the specific word in the span according to the BIO scheme; we use the "B-" vector elements for the first word in the span, "I-" otherwise.
+
+該特徵向量將應用於範圍中的每個單詞，根據BIO方案考慮特定字詞的位置，範圍內的第一個字我們使用"B-"向量元素，範圍內其他的字"I-"。
+
+- according（根據）
+
+For a word $w_i$, we combine features from different spans by performing an element-wise addition over vectors of length $n$ that contain $w_i$.
+
+對於單詞$w_i$，我們通過對於包含$w_i$的長度為$n$的向量執行逐元素加法來組合不同跨度的特徵。
+
+- combine（結合）
+- performing（表演）
+- addition（增加）
+
+The cumulative vector is then normalized by the number of spans of length $n$ that contain $w_i$, so that all values lie between 0 and 1.
+
+然後，通過包含$w_i$的長度$n$的跨度數字累積的向量做標準化，以便所有值都在0到1之間。
+
+- cumulative（累積的）
+
+Finally, we concatenate the normalized vectors for each span length $n$ from 1 to $N$ ($N=3$ in this paper).
+
+最終，我們將每個跨度長度$n$從1到$N$的標準化向量進行連接（本文中$N=3$）。
+
+- concatenate（連接）
+
+We experiment with different ways in which the candidate list can be used to produce feature vectors.
+
+我們實驗了不同的方法使用候選列表生成特徵向量。
+
+- produce（生產）
+
+The complete feature set is:
+
+1. **top-1 score**: This feature takes the score of the highest scoring candidate $c_1$ into account.
+    $$
+    f_{type(c_1)}=score(c_1)
+    $$
+    此特徵考慮了分數最高的候選詞$c_1$的分數。
+
+2. **top-3 score**: Like the top-1 feature, we additionally create feature vectors for the second and third highest scoring candidates.
+   像top-1功能一樣，我們幫分數第二第三高的候選詞另外建立特徵向量。
+   - additionally（另外）
+
+3. **top-3 count**: These features are type-wise counts of the top-3 candidates. Instead of adding the score to the appropriate feature element, we add 1.0 to the current value. For a candidate type $t$, such as LOC, PER or ORG,
+    $$
+    f_t=\sum_{c\in\{c_1,c_2,c_3\}}{1.0}\times 1_{type(c)=t}
+    $$
+    $1_{type(c)=t}$ is an indicator function that returns 1.0 when the candidate type is the same as the feature element being updated, 0.0 otherwise.
+
+    這些特徵是前三名候選詞的類型計數。我們沒有將分數添加到適當的要素元素，而是將1.0添加到當前值。對於$t$候選的類型，像是LOC, PER or ORG,
+
+    $1_{type(c)=t}$是一個指標函數，當候選類型與要更新的要素相同時返回1.0，否則返回0.0。
+
+    - appropriate（適當）
+    - current（當前）
+
+4. **top-30 count**: This feature computes type-wise counts for the top-30 candidates.
+
+   此特徵計算前30個候選詞的類型數量。
+
+5. **margin**: The margin between the scores of consecutive candidates within the top-4. These features are not computed type-wise. For example the feature value for the margin between the top-2 candidates is,
+    $$
+    f_{c_1,c_2}=score(c_1)-score(c_2)
+    $$
+
+    前4名中的連續候選詞分數之間的差距。這些特徵不是照類別計算。例如，前2名候選詞之間的差距特徵值是，
+
+    - margin（差距）
+
+We experiment with different combinations of these features by concatenating their respective vectors.
+
+我們通過串連它們各自的向量來實驗這些特徵的不同組合。
+
+- concatenating（繫）
+- respective（各自）
+
+The concatenated vector is passed through a fully connected neural network layer with a $tanh$ non-linearity and then used in the NER model.
+
+具有非線性$tanh$的全連接神經網路通過傳遞串連的向量，使用在NER模型。
+
+## 4 Named Entity Recognition Model
+
+As our base model, we use the neural CRF model of **Ma and Hovy (2016)**. We adopt the method from **Wu et al. (2018)** to incorporate linguistic features, which uses an autoencoder loss to help retain information from the hand-crafted features throughout the model (shown in **Figure 2**). We briefly discuss the model in this section, but encourage readers to refer to the original papers for a more detailed description.
+
+作為我們的基本模型，我們使用 **Ma and Hovy (2016)** 裡的神經CRF模型。我們採用 **Wu et al. (2018)** 的方法整合語言特徵，它使用autoencoder loss來幫助保留模型中手工製作特徵的信息（如 **Figure 2** ）。我們在本節中簡要討論該模型，但是更多的細節描述鼓勵讀者去參考原始的論文。
+
+- retain（保留）
+- throughout（始終）
+- discuss（討論）
+- encourage（鼓勵）
+- refer（參考）
+- description（描述）
+
+**NER objective** Given an input sequence, we first calculate a vector representation for each word by concatenating the character representation from a CNN, the word embedding, and the soft gazetteer features. The word representations are then used as input to a bidirectional LSTM (BiLSTM). The hidden states from the BiLSTM and the soft gazetteer features are input to a Conditional Random Field (CRF), which predicts a sequence of NER labels. The training objective, $L_{CRF}$, is the negative log-likelihood of gold label sequence.
+
+給定一個輸入句子，我們首先通過將來自CNN的字符表示，word embedding，軟地名詞庫特徵這些串連起來。然後，將單詞表示形式用作雙向LSTM（BiLSTM）的輸入。再將BiLSTM的hidden狀態跟軟地名詞典特徵輸入到CRF預測一個NER標籤的序列。訓練的標籤序列的目標函式$L_{CRF}$是negative log-likelihood。
+
+**Autoencoder objective** **Wu et al. (2018)** demonstrate that adding an autoencoder to reconstruct the hand-crafted features leads to improvement in NER performance. The autoencoder takes the hidden states of the BiLSTM as input to a fully connected layer with a sigmoid activation function and reconstructs the features. This forces the BiLSTM to retain information from the features. The cross-entropy loss of the soft gazetteer feature reconstruction is the autoencoder objective, $L_{AE}$.
+
+**Wu et al. (2018)**證明加上autoencoder重建手工製作特徵可以提高NER性能。autoencoder需要BiLSTM的hidden狀態輸入到全連接層再經過活化函式sigmoid並重建這些特徵。BiLSTM的作用是保留特徵的信息。autoencoder的目標函式是軟地名詞典重建的cross-entropy loss, $L_{AE}$。
+
+- reconstruct（重建）
+
+**Training and inference** The training objective is the joint loss: $L_{CRF}+L_{AE}$. The losses are given equal weight, as recommended in **Wu et al. (2018)**. During inference, we use Viterbi decoding to obtain the most likely label sequence.
+
+訓練的目標函式是合併loss：$L_{CRF}+L_{AE}$。 **Wu et al. (2018)** 推薦loss給定一樣的權重。推論的過程中，我們使用Viterbi解碼去取得最有可能的標籤序列。
+
+- recommended（推薦的）
+- During inference（推論中）
+- obtain（獲得）
+- likely（可能）
+
+## 5 Experiments
+
+In this section, we discuss our experiments on four low-resource languages and attempt to answer the following research questions: 1) "Although gazetteer-based features have been proven useful for neural NER on English, is the same true in the low-resource setting?" 2) "Do the proposed soft-gazetteer features outperform the baseline?" 3) "What types of entity mentions benefit from soft gazetteers?" and 4) "Does the knowledge base coverage affect performance?".
+
+在這節，我們討論了四種低資源語言的實驗並嘗試回答以下研究問題： 1)雖然基礎地名詞典特徵證明對英文的神經NER有用，但是一樣對低資源語言有用嗎？ 2)提出的軟地名詞典比標準好多少？ 3) 那些類別的實體是對軟地名詞典受益的？ 4) 知識庫的覆蓋範圍會影響性能嗎？
+
+- attempt（嘗試）
+- proven（證明）
+- useful（有用）
+- mentions（提及）
+- benefit（好處）
+
+### 5.1 Experimental setup
+
+**NER Dataset** We experiment on four low-resource languages: Kinyarwanda (kin), Oromo (orm), Sinhala (sin), and Tigrinya (tir). We use the LORELEI dataset (**Strassel and Tracey, 2016**),which has text from various domains, including news and social media, annotated for the NER task.
+
+我們實驗了四個低資源語言：Kinyarwanda (kin), Oromo (orm), Sinhala (sin), and Tigrinya (tir)。我們使用了LORELEI資料集(**Strassel and Tracey, 2016**)，其中的文字來自各種不一樣的地方，包含了新聞跟社群軟體，帶標注的NER任務。
+
+**Table 1** shows the number of sentences annotated. The data is annotated with four named entity types: locations (LOC), persons (PER), organizations (ORG), and geopolitical entities (GPE). Following the CoNLL-2003 annotation standard, we merge the LOC and GPE types (**Tjong Kim Sang and De Meulder, 2003**). Note that these datasets are very low-resource, merely 4% to 13% the size of the CoNLL-2003 English dataset.
+
+顯示帶標注句子的數量。資料中標注有四種類別：locations (LOC), persons (PER), organizations (ORG), and geopolitical entities (GPE)。照著CoNLL-2003的標注標準，我們合併了LOC跟GPE類別(**Tjong Kim Sang and De Meulder, 2003**)。注意這些資料集資源非常少，僅僅只佔CoNLL-2003英文資料集的4%到13%。
+
+- merely（僅僅）
+
+These sentences are also annotated with entity links to a knowledge base of 11 million entries, which we use $only$ to aid our analysis. Of particular interest are "NIL" entity mentions that do not have a corresponding entry in the knowledge base (**Blissett and Ji, 2019**). The fraction of mentions that are NIL is shown in **Table 1**.
+
+這些句子還帶有指向11百萬的知識庫的實體鏈接的標注，我們使用$only$來輔助我們的分析。特別感興趣的是沒有"NIL"實體相應的條目在知識庫提及(**Blissett and Ji, 2019**)。**Table 1**中顯示了提及為NIL的部份。
+
+- aid（援助）
+- analysis（分析）
+- fraction（分數）
+
+**Gazetteer Data** We also compare our method with binary gazetteer features, using entity lists from Wikipedia, the sizes of which are in **Table 1**.
+
+
