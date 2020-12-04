@@ -390,4 +390,125 @@ These sentences are also annotated with entity links to a knowledge base of 11 m
 
 **Gazetteer Data** We also compare our method with binary gazetteer features, using entity lists from Wikipedia, the sizes of which are in **Table 1**.
 
+我們還使用維基百科中的實體列表將我們的方法與二進制地名詞典特徵進行了比較，實體列表的大小在**Table 1**。
 
+- compare（相比）
+
+**Implementation** Our model is implemented using the DyNet toolkit (**Neubig et al., 2017**), and we use the same hyperparameters as **Ma and Hovy (2016)**. We use randomly initialized word embeddings since we do not have pretrained vectors for low-resource languages.
+
+我們的模型是使用DyNet工具包實現的(**Neubig et al., 2017**)，並且我們也使用與**Ma and Hovy (2016)**相同的超參數。我們使用隨機初始化的embeddings，因為我們沒有低資源語言的per train向量。
+
+- implemented（已實施）
+- since（以來）
+
+### 5.2 Methods
+
+**Baselines** We compare with two baselines:
+
+我們比較了兩個標準：
+
+- NOFEAT: The CNN-LSTM-CRF model (**section 4**) without any features.
+  沒有任何特徵CNN-LSTM-CRF模型
+- BINARYGAZ: We use Wikipedia entity lists (**Table 1**) to create binary gazetteer features.
+  我們使用建立二進位地名詞典特徵在維基百科實體列表。
+
+**Soft gazetteer methods** We experiment with different candidate retrieval methods designed for low-resource languages. These are trained $only$ with small bilingual lexicons from Wikipedia, of similar size as the gazetteers (**Table 1**).
+
+我們對低資源語言實驗了不同的候選詞檢索方法。這些經過訓練的$only$來自維基百科的小型雙語詞典，其大小與地名詞典相。
+
+- bilingual（雙語）
+- lexicons（詞典）
+
+- WIKIMEN: The WikiMention method is used in several state-of-the-art EL systems (**Silet et al., 2018; Upadhyay et al., 2018**), where bilingual Wikipedia links are used to retrieve the appropriate English KB candidates.
+
+維基百科方法用於幾種最先進的實體連接系統中(**Silet et al., 2018; Upadhyay et al., 2018**)，其中雙語維基百科鏈接用於檢索適當的英語知識庫候選詞。
+
+- retrieve（找回）
+
+- Pivot-based-entity-linking (**Zhou et al., 2020**): This method encodes entity mentions on the character level using n-gram neural embeddings (**Wieting et al., 2016**) and computes their similarity with KB entries. We experiment with two variants and follow **Zhou et al., (2020)** for hyperparameter selection:
+
+    基於樞軸的實體鏈接 (**Zhou et al., 2020**)：這個方法使用n-gram神經embeddings在字符級別對實體提及進行編碼(**Wieting et al., 2016**)並計算它們與知識庫條目的相似度。
+    1) PBELSUPERVISED: trained on the small number of bilingual Wikipedia links available in the target low-resource language.
+
+        受過少量目標低資源語言的雙語維基百科鏈接培訓。
+    2) PBELZERO: trained on some high-resource language ("the pivot") and transferred to the target language in a zero-shot manner. The transfer languages we use are Swahili for Kinyarwanda, Indonesian for Oromo, Hindi for Sinhala, and Amharic for Tigrinya.
+
+        訓練一些高資源語言並轉換與零射方式到目標語言。我們轉換的語言是Swahili for Kinyarwanda, Indonesian for Oromo, Hindi for Sinhala, and Amharic for Tigrinya。
+        - manner（方式）
+
+**Oracles** As an upper-bound on the accuracy, we compare to two artificially strong systems:
+
+作為準確率的上限，我們與兩個人工強大的系統進行比較：
+
+- upper-bound（上限）
+
+- ORACLEEL: For soft gazetteers, we assume perfect candidate retrieval that always returns the correct KB entry as the top candidate if the mention is non-NIL.
+
+    對於軟地名詞典，我們假設完美的候選詞檢索始終能夠將正確知識庫條目作為最佳候選詞回傳（如果提及為non-NIL）
+
+  - correct（正確）
+
+- ORACLEGAZ: We artificially inflate BINARYGAZ by augmenting the gazetteer with all the named entities in our dataset.
+
+    我們通過用數據集中所有命名實體擴充地名詞典來人為地增加BINARYGAZ。
+
+  - inflate（膨脹）
+  - augmenting（擴充）
+
+### 5.3 Results and Analysis
+
+Results are shown in **Table 2**. First, comparing BINARYGAZ to NOFEAT shows that traditional gazetteer features help somewhat, but gains are minimal on languages with fewer available resources. Further, we can see that the proposed soft gazetteer method is effective, some variant thereof achieving the best accuracy on all languages.
+
+結果顯示在**Table 2**。首先比較BINARYGAZ與NOFEAT顯示傳統的地名詞典特徵有所幫助，但是對於可用資源較少的語言效益微乎其微。進一步我們可以看到提出的軟地名詞典方法是有用的，某些變體在所有語言上都達到最佳準確性。
+
+- gains（收益）
+- achieving（實現）
+  
+For the soft gazetteer method, **Table 2** shows the performance with the best performing features (which were determined on a validation set): **top-1** features for Kinyarwanda, Sinhala and Tigrinya, and **top-30** features for Oromo. Although Sinhala (sin) has a relatively large gazetteer (**Table 1**), we observe that directly using the gazetteer as recommended in previous work with BINARYGAZ, does not demonstrate strong performance. On the other hand, with the soft gazetteer method and our carefully designed features, PBELSUPERVISED works well for Sinhala (sin) and improves the NER performance. PBELZERO is the best method for the other three languages, illustrating how our proposed features can be used to benefit NER by leveraging information from languages closely related to the target. The improvement for Oromo (orm) is minor, likely because of the limited cross-lingual links available for training PBELSUPERVISED and the lack of suitable transfer languages for PBELZERO (**Rijhwani et al., 2019**).
+
+對於軟地名方法，**Table 2**顯示性能最佳的特徵（由驗證集確定）：**top-1**是Kinyarwanda, Sinhala and Tigrinya，**top-30**是Oromo。雖然Sinhala有著相對大的地名詞典(**Table 1**)，我們觀察到直接使用BINARYGAZ先前工作中建議的地名詞典，並不能顯示出強大的性能。另一方面，通過軟地名詞典與我們精心製作的特徵，PBELSUPERVISED更適合Sinhala (sin)且提高了NER的性能。PBELZERO是其他三種語言的最佳方法，它說明了如何利用與目標語言密切相關的信息讓NER受益。Oromo (orm)的改進很小，可能是因為PBELSUPERVISED訓練的跨語言鏈接有限，跟PBELZERO缺乏適當的語言轉換(**Rijhwani et al., 2019**)。
+
+- relatively（相對）
+- observe（觀察）
+- previous（以前）
+- On the other hand（另一方面）
+- illustrating（說明）
+- leveraging（借力）
+- minor（次要）
+- suitable（適當）
+
+Finally, we find that both ORACLEGAZ and ORACLEEL improve by a large margin over all non-oracle methods, indicating that there is substantial headroom to improve low-resource NER through either the development of gazetteer resources or the creation of more sophisticated EL methods.
+
+最後，我們發現與所有non-oracle方法相比ORACLEGAZ與ORACLEEL都有很大的提高，這表明通過開發地名詞典資源或是建立更為複雜的實體鏈接方法，還是有很大的空間來改善低資源NER。
+
+- substantial（充實的）
+- headroom（淨空）
+- sophisticated（複雜的）
+
+**How do soft-gazetteers help?** We look at two types of named entity mentions in our dataset that we expect to benefit from the soft gazetteer features: 1) non-NIL mentions with entity links in the KB that can use EL candidate information, and 2) mentions unseen in the training data that have additional information from the features as compared to the baseline. **Table 3** shows that the soft gazetteer features increase the recall for both types of mentions by several points.
+
+我們在資料集中查看兩種類型的命名實體提及，我們希望它們會從軟地名詞庫特徵中受益： 1) 非NIL提及知識庫可以使用實體鏈接候選詞信息，2) 訓練資料中未提及的內容，其中包含與標準線相比來自要素的其他信息。**Table 3** 顯示軟地名詞典特徵增加一些recall分數在這兩個類型。
+
+- expect（期望）
+- unseen（看不見）
+- compared to（比較）
+- increase（增加）
+
+**Knowledge base coverage** **Table 3** indicates that the soft gazetteer features benefit those entity mentions that are present in the KB. However, our dataset has a significant number of NIL-clustered mentions (**Table 1**). The ability of our features to add information to NIL mentions is diminished because they do not have a correct candidate in the KB. To measure the effect of KB coverage, we augment the soft gazetteer features with ORACLEGAZ features, applied $only$ to the NIL mentions. Large F1 increases in **Table 4** indicate that higher KB coverage will likely make the soft gazetteer features more useful, and stresses the importance of developing KBs that cover all entities in the document.
+
+**Table 3** 表示軟地名詞典特徵有益於知識庫中存在的那些實體提及。然而我們的資料集中有大量的NIL提及 (**Table 1**)。我們的特徵對NIL提及增加信息的能力已減弱，因為它在知識庫裡並沒有正確的候選詞。衡量知識庫覆蓋率得影響，我們通過ORACLEGAZ特徵擴充了軟地名詞典，將$only$應用在NIL提及。F1在**Table 4**大幅增加表明更高的知識庫覆蓋率可能會使軟地名詞典特徵更有用，跟強調開發涵蓋文檔中所有實體的知識庫的重要性。
+
+- significant（重大）
+- clustered（聚集）
+- ability（能力）
+- measure（測量）
+- stresses（強調）
+
+## 6 Conclusion
+
+We present a method to create features for low-resource NER and show its effectiveness on four low-resource languages. Possible future directions include using more sophisticated feature design and combinations of candidate retrieval methods.
+
+我們展示一個方法給低資源NER建立特徵並且顯示它對4個低資源語言是有效的。未來可能的方向包含設計更多複雜的特徵跟候選詞檢索方法的串連。
+
+- possible（可能）
+- sophisticated（複雜的）
