@@ -2,9 +2,12 @@
 
 ## 條列
 
-- 目前缺乏真實使用者資料，使用假規則資料
-- BiLSTM（長短期記憶模） 就可以達到很棒的 performance，在規則
-- Bert 
+- 題目特殊，目前缺乏真實使用者資料，使用假規則資料訓練，以不同的規則資料與少量的真實資料做評估。但是又跟一般的NER任務不太一樣，規則與文字多樣性跟一般NER任務來說太少。
+- BiLSTM（長短期記憶模型）
+  - 可以達到很棒的 performance，在規則上與文字理解上都有很好的效果，但是在對有一定差距的規則時的 performance 就不是很好。
+  - 添加額外資料（都是Other的資料）加入訓練可以增加真實資料的 performance。可以推斷多看一點資料或文字是可以越貼近真實世界在文意的理解上也有所幫助。
+- Bert
+  - 雖然在一般的NER任務普遍 performance 會比 BiLSTM 來的更好，但是在這題目的實驗表明 performance 並沒有 BiLSTM 來的好。
 
 ## Abstract
 
@@ -26,3 +29,8 @@
 放開來看這個處理這個任務跟NLP中NER任務是非常相似的
 
 BiLSTM 就可以達到很棒的 performance，但是在規則上
+
+## 還想做的實驗
+
+- per training 研究
+  - LSTM, Attention 做 self-per training 使用 not zero Nei 地址資料與額外資料，fine-tuning 使用not zero Nei 地址資料
