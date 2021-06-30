@@ -59,3 +59,7 @@ eval "$(pyenv virtualenv-init -)"```
 
 激活
 `source ~/.bashrc`
+
+## pyenv install
+
+`$ CC=gcc pyenv install 3.9.1`
