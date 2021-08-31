@@ -10,11 +10,16 @@
   - specificity of 62.4%
   - area under the receiver operating characteristic curve of 0.787
 - data
+  - from
+    - https://github.com/bgudenas/DeepLncRNA
   - 93 RNA-seq sampes from 14 human, 45 cytosol, 48 nucleus
   - 4380 cytosolic lncRNAs and 4298 nuclear lncRNAs
   - 70/15/15
-  - https://github.com/bgudenas/DeepLncRNA
-- 用 DNN 預測
+- model
+  - DNN
+    - input
+    - 3 hidden, dropout
+    - softmax
 
 > sensitivity 敏感度（真陽性率）: 指有條件的人（根據“黃金標準”判斷）在該測試中獲得陽性結果的比例。
 > specificity 特異度（真陰性率）: 是指沒有條件的人（根據“黃金標準”判斷）在該測試中得到陰性結果的比例。
@@ -37,7 +42,8 @@ lncRNAs 在許多不同的亞細胞位置執行多種基本分子功能。
   - 655 lncRNA sequences
   - 156 lncRNAs from nucleus, 426 samples from cytoplasm, 43 lncRNAs from ribosome, 30 lncRNAs from exosome.
   - http://lin-group.cn/server/iLoc-LncRNA/Supp-S1.txt , 找不到
-- SVM
+- model
+  - SVM
 
 ## lncLocator
 
@@ -55,6 +61,9 @@ lncRNAs 在許多不同的亞細胞位置執行多種基本分子功能。
   - $SVM^R$ 原始SVM
   - $RF^A$ RF 使用 AE-based high-level features
   - $SVM^A$ SVM 使用 AE-based high-level features
+  - NN ensemble
+
+![lncLocator_fig3](../image/lncLocator_fig3.png)
 
 ## lncLocPred
 
@@ -95,7 +104,6 @@ lncRNAs 在許多不同的亞細胞位置執行多種基本分子功能。
 - data
   - from
     - http://www.rna-society.org/rnalocate/
-  - 655 features
   - 923 lncRNA labelled subcellular localization
   - 426 cytoplasm, 344 nucleus, 314 ribosome, 240 exosom, ALL 1324
 - model
@@ -113,3 +121,11 @@ lncRNAs 在許多不同的亞細胞位置執行多種基本分子功能。
       - iterates = 15,000
     - Microsoft Azure
   - cross validation
+
+## note
+
+- DeeplncRNA
+  - 一條 RNA seq 可以分出好幾個 lncRNAs？
+- 除了 DeeplncRNA 好像都是比較傳統的 ML，在 Feature 上都下了很多功夫
+- DeeplncRNA, iLoc-lncRNA data 失效
+- 
