@@ -128,4 +128,4 @@ lncRNAs 在許多不同的亞細胞位置執行多種基本分子功能。
   - 一條 RNA seq 可以分出好幾個 lncRNAs？
 - 除了 DeeplncRNA 好像都是比較傳統的 ML，在 Feature 上都下了很多功夫
 - DeeplncRNA, iLoc-lncRNA data 失效
-- 
+- Locate-R 有 cross validation，performance 最好的
