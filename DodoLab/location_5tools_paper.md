@@ -4,10 +4,11 @@
 
 ---
 
-- accuracy of 72.4%
-- sensitivity of 83%
-- specificity of 62.4%
-- area under the receiver operating characteristic curve of 0.787
+- results
+  - accuracy of 72.4%
+  - sensitivity of 83%
+  - specificity of 62.4%
+  - area under the receiver operating characteristic curve of 0.787
 - data
   - 93 RNA-seq sampes from 14 human, 45 cytosol, 48 nucleus
   - 4380 cytosolic lncRNAs and 4298 nuclear lncRNAs
@@ -44,6 +45,8 @@ lncRNAs 在許多不同的亞細胞位置執行多種基本分子功能。
 
 - accuracy 59%
 - data
+  - from
+    - http://www.rna-society.org/rnalocate
   - including cytoplasm, nucleus, cytosol, ribosome and exosome
   - 612 lncRNA
 - RF, SVM
@@ -60,8 +63,8 @@ lncRNAs 在許多不同的亞細胞位置執行多種基本分子功能。
 - accuracy 92.37%
 - data
   - from
-    - lncLocator, paper
-    - RNALocate, web
+    <!-- - RNALocate, paper -->
+    - http://www.rna-society.org/rnalocate/
   - benchmark dataset
     - nucleus 156
     - cytoplasm 426
@@ -72,6 +75,9 @@ lncRNAs 在許多不同的亞細胞位置執行多種基本分子功能。
     - cytoplasm 199
     - ribosome 99
     - exosome 16
+- model
+
+![lncLocPred_figure1](../image/lncLocPred_figure1.png)
 
 ## Locate-R
 
@@ -87,6 +93,8 @@ lncRNAs 在許多不同的亞細胞位置執行多種基本分子功能。
 ![Table5](../image/locate-R_table5.png)
 
 - data
+  - from
+    - http://www.rna-society.org/rnalocate/
   - 655 features
   - 923 lncRNA labelled subcellular localization
   - 426 cytoplasm, 344 nucleus, 314 ribosome, 240 exosom, ALL 1324
@@ -105,6 +113,3 @@ lncRNAs 在許多不同的亞細胞位置執行多種基本分子功能。
       - iterates = 15,000
     - Microsoft Azure
   - cross validation
-
-
-http://www.rna-society.org/rnalocate/
