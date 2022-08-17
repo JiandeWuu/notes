@@ -82,3 +82,52 @@ pip freeze > requirements.txt
 pip3 install -r requirements.txt
 
 ---
+
+## 更換 docker image container 存放目錄
+
+---
+
+1. Stop the docker daemon
+
+```cmd
+sudo service docker stop
+```
+
+2. Add a configuration file to tell the docker daemon what is the location of the data directory
+
+Using your preferred text editor add a file named daemon.json under the directory /etc/docker. The file should have this content:
+
+```cmd
+{ 
+   "data-root": "/path/to/your/docker" 
+}
+```
+
+3. Copy the current data directory to the new one
+
+```cmd
+sudo rsync -aP /var/lib/docker/ /path/to/your/docker
+```
+
+4. Rename the old docker directory
+
+```cmd
+sudo mv /var/lib/docker /var/lib/docker.old
+```
+
+5. Restart the docker daemon
+
+```cmd
+sudo service docker start
+```
+
+6. Test
+
+```cmd
+sudo rm -rf /var/lib/docker.old
+```
+
+### 疑難雜症
+
+dodolab S223
+[Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?](https://blog.yowko.com/cannot-connect-docker-daemon/)
